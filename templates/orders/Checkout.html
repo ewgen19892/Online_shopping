@@ -1,0 +1,105 @@
+{% extends 'Base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+        {% if object_list %}
+            <div class="col-lg-8 col-lg-offset-2">
+                <h3 class="text-center">Products in basket</h3>
+                <div class="text-center">
+                    <b>Total cost: </b><span id="total_order_amount">{{ products_total_price }} USD</span>
+                </div><br>
+                <form method="post" class="form-horizontal">{% csrf_token %}
+                    <table class="table text-center">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Product name:</th>
+                                <th class="text-center">Number:</th>
+                                <th class="text-center">Price per item:</th>
+                                <th class="text-center">Total price:</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="table_body">
+                            {% for object in object_list %}
+                                <tr class="product_in_basket_{{ object.id }}" id="table">
+                                    <td>
+                                        {{ object.product.name }}
+                                    </td>
+                                    <td>
+                                        <input value="{{ object.number }}" type="number"
+                                               class="product-in-basket-nmb" name="product_in_basket_{{ object.id }}">
+                                    </td>
+                                    <td>
+                                        <span class="product-price">
+                                            {{ object.price_per_item }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span class="total-product-in-basket-amount">
+                                            {{ object.total_price }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a class="delete-item" href="" data-product_id="{{ object.id }}">x</a>
+{#                                        <button type="submit" class="btn btn-success btn-byu" id="submit_btn">#}
+{#                                            <a href="{% url 'delete' object.id %}">Delete</a>#}
+{#                                        </button>#}
+{#                                          <form action="{% url 'delete' object.id %}" method="post">#}
+{#                                            {% csrf_token %}#}
+{#                                            <a href="{% url 'delete' object.id %}">Delete</a>#}
+{#                                         </form>#}
+
+                                    </td>
+                                </tr>
+                             {% endfor %}
+                        </tbody>
+                    </table>
+                <div class="form-group">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="col-lg-3">
+                                    <p class="text-center">{{ form.customer_name.label_tag }}</p>
+                                    <span class="form-errors">{{ form.customer_name.errors }}</span>
+                                    {{ form.customer_name }}<br>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p class="text-center">{{ form.customer_email.label_tag }}</p>
+                                    <span class="form-errors">{{ form.customer_email.errors }}</span>
+                                    {{ form.customer_email }}<br>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p class="text-center">{{ form.customer_phone.label_tag }}</p>
+                                    <span class="form-errors">{{ form.customer_phone.errors }}</span>
+                                    {{ form.customer_phone }}<br>
+                                    <br>
+                                </div>
+                                <div class="col-lg-3">
+                                    <p class="text-center">{{ form.customer_address.label_tag }}</p>
+                                    <span class="form-errors">{{ form.customer_address.errors }}</span>
+                                    {{ form.customer_address }}<br>
+                                    <br>
+                                </div>
+                                 <div class="col-lg-3">
+                                    <p class="text-center">{{ form.comment.label_tag }}</p>
+                                    <span class="form-errors">{{ form.comment.errors }}</span>
+                                    {{ form.comment }}<br>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary btn-lg">To order</button>
+                    </div>
+                </form>
+            </div>
+            {% else %}
+            <h3 class="text-center">There is no products</h3>
+        {% endif %}
+        </div>
+    </div>
+{% endblock %}

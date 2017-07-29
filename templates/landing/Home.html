@@ -1,0 +1,56 @@
+{% extends 'Base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <div class="section-top">
+        <img src="{% static 'static_dev/img/background.jpg' %}" class="img-responsive">
+    </div>
+    <div class="section section1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="text-center">
+                        New Arrivals
+                    </h1>
+                </div>
+                {% for object in object_list %}
+                    {% include 'landing/Product_item.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="section section-delivery">
+        <div>
+            <h3>Free shipping</h3>
+        </div>
+    </div>
+    <div class="section section2 phones-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="text-center">
+                        Phones
+                    </h1>
+                </div>
+                {% for object in product_images_phones %}
+                    {% include 'landing/Product_item.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="section section3 laptops-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="text-center">
+                        Laptops
+                    </h1>
+                </div>
+                {% for object in product_images_laptop %}
+                    {% include 'landing/Product_item.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

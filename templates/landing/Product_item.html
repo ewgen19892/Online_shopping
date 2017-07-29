@@ -1,0 +1,47 @@
+<div class="col-lg-3">
+    <div class="product-item">
+        <div>
+            <a href="{% url 'show_product' object.product.id %}">
+                <img src="{{ object.image.url }}" class="img-responsive">
+            </a>
+        </div>
+
+        {% if object.product.discount %}
+            <div class="discount-container">
+                <span>{{ object.product.discount }}%</span>
+            </div>
+        {% endif %}
+
+        <h4>{{ object.product.name }}</h4>
+        <p>{{ object.product.get_short_test }}</p>
+        {% if object.product.discount %}
+            <div>
+                <p class="text-success"><strong>Old price: {{ object.product.price }} USD</strong></p>
+                <p class="price-with_discount"><b>New price: {{ object.product.price_with_discount }} USD</b></p>
+            </div>
+        {% else %}
+            <div>
+                <p class="text-success"><strong>Price: {{ object.product.price }} USD</strong></p>
+            </div>
+        {% endif %}
+        <div class="form-basket-items hidden">
+            <div class="basket-items">
+                <p><b>Product added</b></p>
+            </div>
+        </div>
+        <form id="add_to_basket_product" class="form-inline" action="{% url 'basket_adding' %}" data-product_id="{{ object.product.id }}">
+            <div class="add-to-cart-btn">
+                <button type="submit" class="btn btn-success btn-byu" id="submit_btn"
+                    data-product_id='{{ object.product.id }}'
+                    data-nmb='1'>
+                    Add to basket
+                </button>
+            </div>
+        </form>
+{#        <div class="add-to-cart-btn">#}
+{#            <button class="btn btn-success">#}
+{#                Add to Cart#}
+{#            </button>#}
+{#        </div>#}
+    </div>
+</div>
