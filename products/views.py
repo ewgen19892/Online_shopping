@@ -26,8 +26,3 @@ class CategoryView(ListView):
     def get_queryset(self):
         queryset = ProductImage.objects.filter(product__category_id=self.pk)
         return queryset
-
-    # def get_context_data(self, **kwargs):
-    #     context = super(CategoryView, self).get_context_data(**kwargs)
-    #     context['images'] = ProductImage.objects.filter(product__category_id=self.pk, is_main=True)
-    #     return context

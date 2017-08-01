@@ -94,7 +94,6 @@ class OrderStatus(TemplateView):
         if self.search:
             try:
                 context['status_order'] = Order.objects.get(order_number=self.search)
-
             except:
                 context['status_order'] = 'Order not found'
         return context

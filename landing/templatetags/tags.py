@@ -1,5 +1,4 @@
 from django import template
-
 from products.models import ProductCategory
 
 register = template.Library()
