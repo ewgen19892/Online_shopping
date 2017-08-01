@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^checkout/$', ProductInBasketView.as_view(), name='checkout'),
     url(r'^thx/$', TemplateView.as_view(template_name='orders/Thx.html'), name='thx'),
     url(r'^delete/(?P<pk>\d+)/$', DeleteProductInBasket.as_view(), name='delete'),
+    url(r'^track/$', OrderStatus.as_view(), name='status'),
 
 ]

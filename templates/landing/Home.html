@@ -30,24 +30,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="text-center">
-                        Phones
+                        Discounted Products
                     </h1>
                 </div>
-                {% for object in product_images_phones %}
-                    {% include 'landing/Product_item.html' %}
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    <div class="section section3 laptops-container">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="text-center">
-                        Laptops
-                    </h1>
-                </div>
-                {% for object in product_images_laptop %}
+                {% for object in product_images_discount %}
                     {% include 'landing/Product_item.html' %}
                 {% endfor %}
             </div>

@@ -23,7 +23,7 @@ html, body{
     margin-top: 200px;
     background-color: white;
     clear: both;
-    height: 200px;
+    height: 50px;
 }
 
 .section-top{
@@ -42,7 +42,7 @@ html, body{
 
 
 .product-item{
-    height: 810px;
+    height: 555px;
     background-color: white;
     border: 1px solid lightgrey;
     position: relative;
@@ -102,4 +102,29 @@ html, body{
 
 .price-with_discount{
     color: #d23737;
+}
+
+#search{
+    padding-top: 100px;
+}
+
+.price-container-discount{
+    position: absolute;
+    width: 200px;
+    left: 35px;
+    bottom: 45px;
+}
+
+.product-discount{
+    display:ruby;
+}
+
+.image-product{
+    text-align: center;
+    padding: 26px;
+
+}
+
+#thx{
+    padding-top: 100px;
 }

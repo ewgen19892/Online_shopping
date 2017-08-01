@@ -28,7 +28,7 @@
                                         {{ object.product.name }}
                                     </td>
                                     <td>
-                                        <input value="{{ object.number }}" type="number"
+                                        <input value="{{ object.number }}" type="number" min="1"
                                                class="product-in-basket-nmb" name="product_in_basket_{{ object.id }}">
                                     </td>
                                     <td>
@@ -43,14 +43,6 @@
                                     </td>
                                     <td>
                                         <a class="delete-item" href="" data-product_id="{{ object.id }}">x</a>
-{#                                        <button type="submit" class="btn btn-success btn-byu" id="submit_btn">#}
-{#                                            <a href="{% url 'delete' object.id %}">Delete</a>#}
-{#                                        </button>#}
-{#                                          <form action="{% url 'delete' object.id %}" method="post">#}
-{#                                            {% csrf_token %}#}
-{#                                            <a href="{% url 'delete' object.id %}">Delete</a>#}
-{#                                         </form>#}
-
                                     </td>
                                 </tr>
                              {% endfor %}

@@ -1,0 +1,24 @@
+{% extends 'Base.html' %}
+{% block content %}
+    <div class="form-group">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 pull-right" id="search">
+                    <form class="navbar-form" role="search">
+                        <div class="form-group">
+                          <input type="text" class="form-control" name="search" placeholder="Enter the order number">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                        {% if status_order %}
+                            {% if status_order == 'Order not found' %}
+                                <div>Status of your order: <strong>Order not found</strong></div>
+                            {% else %}
+                                <div>Status of your order: <strong>{{ status_order.status.name }}</strong></div>
+                            {% endif %}
+                        {% endif %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

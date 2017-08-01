@@ -128,6 +128,10 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'static_dev')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATIC_URL = '/static/'
 
-# MEDIA_DIR = (os.path.join(BASE_DIR, 'static/media/products_images/'),)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'media')
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'e.bohovchuk@gmail.com'
+EMAIL_HOST_PASSWORD = '2532647qq'

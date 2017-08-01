@@ -1,6 +1,5 @@
-from django.shortcuts import render
 from django.views.generic import DetailView, ListView
-from products.models import Product
+from products.models import Product, ProductImage
 
 
 class ProductView(DetailView):
@@ -25,5 +24,10 @@ class CategoryView(ListView):
         return super(CategoryView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        queryset = Product.objects.filter(category_id=self.pk)
+        queryset = ProductImage.objects.filter(product__category_id=self.pk)
         return queryset
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(CategoryView, self).get_context_data(**kwargs)
+    #     context['images'] = ProductImage.objects.filter(product__category_id=self.pk, is_main=True)
+    #     return context

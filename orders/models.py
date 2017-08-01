@@ -2,8 +2,11 @@ import random
 import string
 
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.db import models
 from django.db.models.signals import post_save
+from django.http import BadHeaderError, HttpResponse
+
 from products.models import Product
 
 
@@ -24,7 +27,7 @@ class Status(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(User, blank=True, null=True, default=None)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    order_number = models.CharField(max_length=10, default=0)
+    order_number = models.CharField(max_length=10, default=0, unique=True)
     customer_name = models.CharField(max_length=30)
     customer_email = models.EmailField()
     customer_phone = models.CharField(max_length=30)
@@ -38,9 +41,27 @@ class Order(models.Model):
         return 'Order: %s %s %s' % (self.id, self.customer_name, self.customer_email)
 
     def save(self, *args, **kwargs):
-        self.order_number = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits)
-                                    for x in range(6))
+        if not self.order_number:
+            self.order_number = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits)
+                                        for x in range(6))
         super(Order, self).save(*args, **kwargs)
+
+
+def send_order_number_post_save(sender, instance, created, **kwargs):
+    if created:
+        mail = instance.customer_email
+        from_email = 'e.bohovchuk@gmail.com'
+        order_number = instance.order_number
+        subject = 'Thank you for the order'
+        message = 'The number of your order: %s' % order_number
+        recipients = [mail]
+        try:
+            send_mail(subject, message, from_email, recipients)
+        except BadHeaderError:
+            return HttpResponse('Invalid header found')
+
+
+post_save.connect(send_order_number_post_save, sender=Order)
 
 
 class ProductInOrder(models.Model):
@@ -87,7 +108,7 @@ class ProductInBasket(models.Model):
     product = models.ForeignKey(Product, blank=True, null=True, default=None)
     number = models.IntegerField(default=1)
     price_per_item = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0) #number*price
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)

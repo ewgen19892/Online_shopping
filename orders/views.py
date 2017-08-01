@@ -1,6 +1,6 @@
 from django.http import JsonResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, FormView, DeleteView
+from django.views.generic import ListView, FormView, DeleteView, TemplateView
 from orders.forms import FormOrder
 from orders.models import *
 
@@ -63,7 +63,7 @@ class ProductInBasketView(ListView, FormView):
         comment = data['comment']
         user, created = User.objects.get_or_create(username=phone, defaults={'first_name': name})
         order = Order.objects.create(user=user, customer_name=name, customer_email=email, customer_phone=phone,
-                                     customer_address=address, comment=comment, status_id=1)
+                                     customer_address=address, comment=comment, status_id=2)
         for key, value in data.items():
             if key.startswith('product_in_basket_'):
                 product_in_basket_id = key.split('product_in_basket_')[1]
@@ -80,3 +80,21 @@ class ProductInBasketView(ListView, FormView):
 class DeleteProductInBasket(DeleteView):
     model = ProductInBasket
     success_url = reverse_lazy('checkout')
+
+
+class OrderStatus(TemplateView):
+    template_name = 'orders/Track_order.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.search = request.GET.get('search')
+        return super(OrderStatus, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(OrderStatus, self).get_context_data(**kwargs)
+        if self.search:
+            try:
+                context['status_order'] = Order.objects.get(order_number=self.search)
+
+            except:
+                context['status_order'] = 'Order not found'
+        return context

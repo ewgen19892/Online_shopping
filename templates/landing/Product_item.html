@@ -2,7 +2,7 @@
     <div class="product-item">
         <div>
             <a href="{% url 'show_product' object.product.id %}">
-                <img src="{{ object.image.url }}" class="img-responsive">
+                <img src="{{ object.image.url }}" class="img-responsive-center">
             </a>
         </div>
 
@@ -13,14 +13,14 @@
         {% endif %}
 
         <h4>{{ object.product.name }}</h4>
-        <p>{{ object.product.get_short_test }}</p>
+        <p>{{ object.product.get_short_test }}...</p>
         {% if object.product.discount %}
-            <div>
-                <p class="text-success"><strong>Old price: {{ object.product.price }} USD</strong></p>
+            <div class="price-container-discount">
+                <p class="text-success"><strike><strong>Old price: {{ object.product.price }} USD</strong></strike></p>
                 <p class="price-with_discount"><b>New price: {{ object.product.price_with_discount }} USD</b></p>
             </div>
         {% else %}
-            <div>
+            <div class="price-container-discount">
                 <p class="text-success"><strong>Price: {{ object.product.price }} USD</strong></p>
             </div>
         {% endif %}
@@ -38,10 +38,5 @@
                 </button>
             </div>
         </form>
-{#        <div class="add-to-cart-btn">#}
-{#            <button class="btn btn-success">#}
-{#                Add to Cart#}
-{#            </button>#}
-{#        </div>#}
     </div>
 </div>
