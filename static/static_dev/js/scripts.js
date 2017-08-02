@@ -12,7 +12,6 @@ $(document).ready(function(){
         if (is_delete)
             data['is_delete'] = true;
         var url = url;
-        // var url = form.attr("action");
         $.ajax({
             url: url,
             type: 'POST',
@@ -24,13 +23,6 @@ $(document).ready(function(){
                 cls = '.product_in_basket_'+product_id;
                 $(cls).html('');
                 $('#total_order_amount').text(data.products_total_price+' USD');
-                    // $('.basket-items ul').html("");
-                    // $.each(data.products, function(k, v){
-                    //     $('.basket-items ul').append('<li>' +v.name+' * '+ v.nmb + ' = ' + v.total_price + ' USD  ' +
-                    //         '<a class="delete-item" href="" data-product_id="'+v.id+'">x</a>'+
-                    //         '</li>');
-                    // })
-                // }
                 if (data.products_total_price == undefined){
                        $('#basket_total_amount').text('('+0+')'+'USD');
                        $('#total_order_amount').text(0+' USD');
@@ -43,50 +35,50 @@ $(document).ready(function(){
     }
 
     form.on('submit', function(e){
-        console.log('from product');
         e.preventDefault();
         var nmb = $('#number').val();
         var submit_btn = $('#submit_btn');
         var product_id = submit_btn.data("product_id");
         var url = form.attr("action");
-        // var product_price = submit_btn.data('price');
-        // var sum_product_price = product_price * nmb;
-        // var products_total_price = submit_btn.data('products_total_price');
 
         basketUpdating(product_id, nmb, url, is_delete=false)
 
     });
 
     $(document).on('submit','#add_to_basket_product', function(e){
-        console.log('from home');
         e.preventDefault();
         var submit_btn = $('#submit_btn');
         var product_id = $(this).data('product_id');
-        // var product_id = submit_btn.data("product_id");
-        // var product_id = submit_btn.$(this).data("product_id");
         var nmb = submit_btn.data("nmb");
         var url = $('#add_to_basket_product').attr("action");
 
         basketUpdating(product_id, nmb, url, is_delete=false);
 
     });
+    
+    $('#status').mouseover(function(){
+        $('#status').addClass('active');
+    });
 
-    // function showingBasket() {
-    //     $('.basket-items').removeClass('hidden')
-    // }
+    $('#status').mouseout(function(){
+        $('#status').removeClass('active');
+    });
 
-    // $('.basket-container').on('click', function(e){
-    //     e.preventDefault();
-    //     $('.basket-items').removeClass('hidden');
-    // });
-    //
-    // $('.basket-container').mouseover(function(){
-    //     $('.basket-items').removeClass('hidden');
-    // });
+    $('#about').mouseover(function(){
+        $('#about').addClass('active');
+    });
 
-    // $('.basket-container').mouseout(function(){
-    //     $('.basket-items').addClass('hidden');
-    // });
+    $('#about').mouseout(function(){
+        $('#about').removeClass('active');
+    });
+
+    $('#home').mouseover(function(){
+        $('#home').addClass('active');
+    });
+
+    $('#home').mouseout(function(){
+        $('#home').removeClass('active');
+    });
 
     $(document).on('click', '.delete-item', function(e){
         e.preventDefault();
@@ -118,5 +110,4 @@ $(document).ready(function(){
         calculatingBasketAmount();
     });
 
-    // calculatingBasketAmount();
 });
